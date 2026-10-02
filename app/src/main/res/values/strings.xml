@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Mobildemoapp</string>
+    <string name="app_name">Nexans</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_catalog">Catalog</string>
+    <string name="nav_tools">Tools</string>
+    <string name="nav_profile">Profile</string>
 </resources>
