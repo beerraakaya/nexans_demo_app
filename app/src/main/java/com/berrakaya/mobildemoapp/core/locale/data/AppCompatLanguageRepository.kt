@@ -4,8 +4,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.berrakaya.mobildemoapp.core.locale.domain.AppLanguage
 import com.berrakaya.mobildemoapp.core.locale.domain.LanguageRepository
+import javax.inject.Inject
 
-class AppCompatLanguageRepository : LanguageRepository {
+class AppCompatLanguageRepository @Inject constructor() : LanguageRepository {
 
     override fun getLanguage(): AppLanguage =
         AppLanguage.fromTag(AppCompatDelegate.getApplicationLocales()[0]?.language) //Kullanıcının seçtiği dili döndürür.

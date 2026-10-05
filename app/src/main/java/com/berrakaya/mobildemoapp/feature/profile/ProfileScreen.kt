@@ -22,16 +22,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.berrakaya.mobildemoapp.R
 import com.berrakaya.mobildemoapp.core.designsystem.theme.NexansTheme
 import com.berrakaya.mobildemoapp.core.designsystem.theme.Spacing
 import com.berrakaya.mobildemoapp.core.locale.domain.AppLanguage
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
-    viewModel: ProfileViewModel = viewModel(),
+    viewModel: ProfileViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
