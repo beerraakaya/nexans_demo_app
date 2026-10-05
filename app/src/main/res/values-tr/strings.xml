@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_home">Ana Sayfa</string>
+    <string name="nav_catalog">Katalog</string>
+    <string name="nav_tools">Araçlar</string>
+    <string name="nav_profile">Profil</string>
+    <string name="profile_preferences">Tercihler</string>
+    <string name="profile_language">Dil</string>
+    <string name="language_system">Sistem varsayılanı</string>
+    <string name="action_cancel">İptal</string>
+</resources>

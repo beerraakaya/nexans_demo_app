@@ -1,7 +1,13 @@
 <resources>
-    <string name="app_name">Nexans</string>
+    <string name="app_name" translatable="false">Nexans</string>
     <string name="nav_home">Home</string>
     <string name="nav_catalog">Catalog</string>
     <string name="nav_tools">Tools</string>
     <string name="nav_profile">Profile</string>
+    <string name="profile_preferences">Preferences</string>
+    <string name="profile_language">Language</string>
+    <string name="language_system">System default</string>
+    <string name="language_english" translatable="false">English</string>
+    <string name="language_turkish" translatable="false">Türkçe</string>
+    <string name="action_cancel">Cancel</string>
 </resources>
