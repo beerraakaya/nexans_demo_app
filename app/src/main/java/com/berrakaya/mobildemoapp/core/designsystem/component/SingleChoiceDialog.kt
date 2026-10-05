@@ -1,4 +1,5 @@
-package com.berrakaya.mobildemoapp.feature.profile
+package com.berrakaya.mobildemoapp.core.designsystem.component
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,35 +20,37 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import com.berrakaya.mobildemoapp.R
 import com.berrakaya.mobildemoapp.core.designsystem.theme.Spacing
-import com.berrakaya.mobildemoapp.core.locale.domain.AppLanguage
 
 @Composable
-internal fun LanguagePickerDialog(
-    selected: AppLanguage,
-    onSelect: (AppLanguage) -> Unit,
+fun <T> SingleChoiceDialog(
+    title: String,
+    options: List<T>,
+    selected: T,
+    optionLabel: @Composable (T) -> String,
+    onSelect: (T) -> Unit,
     onDismiss: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.profile_language)) },
+        title = { Text(title) },
         text = {
             Column(modifier = Modifier.selectableGroup()) {
-                AppLanguage.entries.forEach { language ->
+                options.forEach { option ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .selectable(
-                                selected = language == selected,
-                                onClick = { onSelect(language) },
+                                selected = option == selected,
+                                onClick = { onSelect(option) },
                                 role = Role.RadioButton,
                             )
                             .padding(vertical = Spacing.sm),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        RadioButton(selected = language == selected, onClick = null)
+                        RadioButton(selected = option == selected, onClick = null)
                         Spacer(modifier = Modifier.width(Spacing.md))
                         Text(
-                            text = language.displayName(),
+                            text = optionLabel(option),
                             style = MaterialTheme.typography.bodyLarge,
                         )
                     }
@@ -60,11 +63,4 @@ internal fun LanguagePickerDialog(
             }
         },
     )
-}
-
-@Composable
-internal fun AppLanguage.displayName(): String = when (this) {
-    AppLanguage.SYSTEM -> stringResource(R.string.language_system)
-    AppLanguage.ENGLISH -> stringResource(R.string.language_english)
-    AppLanguage.TURKISH -> stringResource(R.string.language_turkish)
 }

@@ -21,4 +21,17 @@
     <string name="product_list_empty">Bu kategoride henüz ürün yok.</string>
     <string name="product_specs_title">Teknik özellikler</string>
     <string name="product_spec_format">%1$s: %2$s</string>
+    <string name="profile_theme">Tema</string>
+    <string name="theme_system">Sistem varsayılanı</string>
+    <string name="theme_light">Açık</string>
+    <string name="theme_dark">Koyu</string>
+
+    <string name="home_title">Doğru kabloyu bulun</string>
+    <string name="home_subtitle">Ürün kodu veya adıyla katalogda arayın</string>
+    <string name="search_placeholder">örn. NYM-J, fiber, XLPE</string>
+    <string name="search_clear">Aramayı temizle</string>
+    <string name="search_popular">Popüler aramalar</string>
+    <string name="search_no_results">“%1$s” için ürün bulunamadı</string>
+    <string name="home_browse_catalog">Kataloğa göz at</string>
+    <string name="home_browse_catalog_desc">Tüm ürün gruplarını inceleyin</string>
 </resources>

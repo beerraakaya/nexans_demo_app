@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Language
+import androidx.compose.material.icons.outlined.Palette
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
@@ -19,14 +21,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.berrakaya.mobildemoapp.R
+import com.berrakaya.mobildemoapp.core.designsystem.component.SingleChoiceDialog
 import com.berrakaya.mobildemoapp.core.designsystem.theme.NexansTheme
 import com.berrakaya.mobildemoapp.core.designsystem.theme.Spacing
 import com.berrakaya.mobildemoapp.core.locale.domain.AppLanguage
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.berrakaya.mobildemoapp.core.settings.domain.ThemeMode
 
 @Composable
 fun ProfileScreen(
@@ -38,6 +43,7 @@ fun ProfileScreen(
     ProfileContent(
         uiState = uiState,
         onLanguageSelected = viewModel::onLanguageSelected,
+        onThemeModeSelected = viewModel::onThemeModeSelected,
         modifier = modifier,
     )
 }
@@ -46,9 +52,11 @@ fun ProfileScreen(
 private fun ProfileContent(
     uiState: ProfileUiState,
     onLanguageSelected: (AppLanguage) -> Unit,
+    onThemeModeSelected: (ThemeMode) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
+    var showThemeDialog by rememberSaveable { mutableStateOf(false) }
 
     Column(
         modifier = modifier
@@ -60,32 +68,39 @@ private fun ProfileContent(
             text = stringResource(R.string.nav_profile),
             style = MaterialTheme.typography.headlineMedium,
         )
-
         Text(
             text = stringResource(R.string.profile_preferences),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-
         Surface(
             shape = MaterialTheme.shapes.large,
             color = MaterialTheme.colorScheme.surface,
         ) {
-            ListItem(
-                modifier = Modifier.clickable { showLanguageDialog = true },
-                leadingContent = { Icon(Icons.Outlined.Language, contentDescription = null) },
-                headlineContent = { Text(stringResource(R.string.profile_language)) },
-                supportingContent = { Text(uiState.selectedLanguage.displayName()) },
-                trailingContent = {
-                    Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
-                },
-            )
+            Column {
+                SettingsItem(
+                    icon = Icons.Outlined.Language,
+                    title = stringResource(R.string.profile_language),
+                    value = uiState.selectedLanguage.displayName(),
+                    onClick = { showLanguageDialog = true },
+                )
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                SettingsItem(
+                    icon = Icons.Outlined.Palette,
+                    title = stringResource(R.string.profile_theme),
+                    value = uiState.themeMode.displayName(),
+                    onClick = { showThemeDialog = true },
+                )
+            }
         }
     }
 
     if (showLanguageDialog) {
-        LanguagePickerDialog(
+        SingleChoiceDialog(
+            title = stringResource(R.string.profile_language),
+            options = AppLanguage.entries,
             selected = uiState.selectedLanguage,
+            optionLabel = { it.displayName() },
             onSelect = { language ->
                 showLanguageDialog = false
                 onLanguageSelected(language)
@@ -93,6 +108,41 @@ private fun ProfileContent(
             onDismiss = { showLanguageDialog = false },
         )
     }
+
+    if (showThemeDialog) {
+        SingleChoiceDialog(
+            title = stringResource(R.string.profile_theme),
+            options = ThemeMode.entries,
+            selected = uiState.themeMode,
+            optionLabel = { it.displayName() },
+            onSelect = { mode ->
+                showThemeDialog = false
+                onThemeModeSelected(mode)
+            },
+            onDismiss = { showThemeDialog = false },
+        )
+    }
+}
+
+@Composable
+private fun SettingsItem(
+    icon: ImageVector,
+    title: String,
+    value: String,
+    onClick: () -> Unit,
+) {
+    ListItem(
+        modifier = Modifier.clickable(onClick = onClick),
+        leadingContent = { Icon(imageVector = icon, contentDescription = null) },
+        headlineContent = { Text(title) },
+        supportingContent = { Text(value) },
+        trailingContent = {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                contentDescription = null,
+            )
+        },
+    )
 }
 
 @Preview(showBackground = true)
@@ -100,8 +150,12 @@ private fun ProfileContent(
 private fun ProfileContentPreview() {
     NexansTheme {
         ProfileContent(
-            uiState = ProfileUiState(selectedLanguage = AppLanguage.TURKISH),
+            uiState = ProfileUiState(
+                selectedLanguage = AppLanguage.TURKISH,
+                themeMode = ThemeMode.DARK,
+            ),
             onLanguageSelected = {},
+            onThemeModeSelected = {},
         )
     }
 }

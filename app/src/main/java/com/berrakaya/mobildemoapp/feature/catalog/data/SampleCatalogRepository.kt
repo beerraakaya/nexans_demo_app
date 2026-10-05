@@ -31,4 +31,13 @@ class SampleCatalogRepository @Inject constructor() : CatalogRepository {
 
     override suspend fun getProductGroup(groupId: String): ProductGroup? =
         getProductGroups().firstOrNull { it.id == groupId }
+
+    override suspend fun searchProducts(query: String): List<Product> {
+        delay(SIMULATED_DELAY_MS)
+        return SampleCatalogData.products.filter { product ->
+            product.code.contains(query, ignoreCase = true) ||
+                    product.name.matches(query) ||
+                    product.description.matches(query)
+        }
+    }
 }

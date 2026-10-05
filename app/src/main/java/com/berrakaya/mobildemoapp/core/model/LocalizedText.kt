@@ -11,6 +11,9 @@ data class LocalizedText(private val translations: Map<String, String>) {
     fun get(languageTag: String): String =
         translations[languageTag] ?: translations.getValue(DEFAULT_LANGUAGE)
 
+    fun matches(query: String): Boolean =
+        translations.values.any { it.contains(query, ignoreCase = true) }
+
     private companion object {
         const val DEFAULT_LANGUAGE = "en"
     }

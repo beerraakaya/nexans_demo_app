@@ -8,4 +8,5 @@ interface CatalogRepository {
     suspend fun getProductsByGroup(groupId: String): List<Product>
     suspend fun getProduct(productId: String): Product?
     suspend fun getProductGroup(groupId: String): ProductGroup?
+    suspend fun searchProducts(query: String): List<Product>
 }

@@ -23,7 +23,12 @@ fun NexansNavHost(
         startDestination = HomeRoute,
         modifier = modifier,
     ) {
-        composable<HomeRoute> { HomeScreen() }
+        composable<HomeRoute> {
+            HomeScreen(
+                onProductClick = { productId -> navController.navigate(ProductDetailRoute(productId)) },
+                onBrowseCatalogClick = { navController.navigateToTopLevel(CatalogGraph) },
+            )
+        }
 
         navigation<CatalogGraph>(startDestination = CatalogRoute) {
             composable<CatalogRoute> {
