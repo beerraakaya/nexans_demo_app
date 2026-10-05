@@ -8,4 +8,13 @@
     <string name="profile_language">Dil</string>
     <string name="language_system">Sistem varsayılanı</string>
     <string name="action_cancel">İptal</string>
+    <string name="catalog_subtitle">Kablo çözümlerimizi kategoriye göre keşfedin</string>
+    <string name="state_error_title">Bir şeyler ters gitti</string>
+    <string name="state_error_message">Bağlantını kontrol edip tekrar dene.</string>
+    <string name="action_retry">Tekrar dene</string>
+
+    <plurals name="catalog_product_count">
+        <item quantity="one">%d ürün</item>
+        <item quantity="other">%d ürün</item>
+    </plurals>
 </resources>

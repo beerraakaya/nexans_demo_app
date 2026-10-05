@@ -21,7 +21,7 @@ fun NexansNavHost(
         modifier = modifier,
     ) {
         composable<HomeRoute> { HomeScreen() }
-        composable<CatalogRoute> { CatalogScreen() }
+        composable<CatalogRoute> { CatalogScreen(onGroupClick = { /* 5C'de ürün listesine bağlanacak */ }) }
         composable<ToolsRoute> { ToolsScreen() }
         composable<ProfileRoute> { ProfileScreen() }
     }

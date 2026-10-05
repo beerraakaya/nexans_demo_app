@@ -10,4 +10,13 @@
     <string name="language_english" translatable="false">English</string>
     <string name="language_turkish" translatable="false">Türkçe</string>
     <string name="action_cancel">Cancel</string>
+    <string name="catalog_subtitle">Browse our cable solutions by category</string>
+    <string name="state_error_title">Something went wrong</string>
+    <string name="state_error_message">Check your connection and try again.</string>
+    <string name="action_retry">Retry</string>
+
+    <plurals name="catalog_product_count">
+        <item quantity="one">%d product</item>
+        <item quantity="other">%d products</item>
+    </plurals>
 </resources>
