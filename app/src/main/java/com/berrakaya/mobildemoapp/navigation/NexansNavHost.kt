@@ -11,6 +11,7 @@ import com.berrakaya.mobildemoapp.feature.catalog.groups.CatalogScreen
 import com.berrakaya.mobildemoapp.feature.catalog.list.ProductListScreen
 import com.berrakaya.mobildemoapp.feature.home.HomeScreen
 import com.berrakaya.mobildemoapp.feature.profile.ProfileScreen
+import com.berrakaya.mobildemoapp.feature.scan.ScanScreen
 import com.berrakaya.mobildemoapp.feature.tools.ToolsScreen
 
 @Composable
@@ -27,6 +28,18 @@ fun NexansNavHost(
             HomeScreen(
                 onProductClick = { productId -> navController.navigate(ProductDetailRoute(productId)) },
                 onBrowseCatalogClick = { navController.navigateToTopLevel(CatalogGraph) },
+                onScanClick = { navController.navigate(ScanRoute) },
+            )
+        }
+
+        composable<ScanRoute> {
+            ScanScreen(
+                onBackClick = { navController.navigateUp() },
+                onProductFound = { productId ->
+                    navController.navigate(ProductDetailRoute(productId)) {
+                        popUpTo<ScanRoute> { inclusive = true }
+                    }
+                },
             )
         }
 

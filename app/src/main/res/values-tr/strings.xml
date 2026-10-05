@@ -34,4 +34,15 @@
     <string name="search_no_results">“%1$s” için ürün bulunamadı</string>
     <string name="home_browse_catalog">Kataloğa göz at</string>
     <string name="home_browse_catalog_desc">Tüm ürün gruplarını inceleyin</string>
+
+    <string name="scan_title">Tara</string>
+    <string name="scan_hint">Kamerayı ürün barkoduna veya QR koduna doğrultun</string>
+    <string name="scan_not_found">“%1$s” için ürün bulunamadı</string>
+    <string name="scan_again">Tekrar tara</string>
+    <string name="scan_permission_title">Kamera izni gerekli</string>
+    <string name="scan_permission_message">Ürün barkodlarını taramak için kamera erişimine izin verin.</string>
+    <string name="scan_permission_allow">Kameraya izin ver</string>
+    <string name="scan_permission_settings">Ayarları aç</string>
+    <string name="home_scan">Barkod tara</string>
+    <string name="home_scan_desc">Kamerayla ürünü bulun</string>
 </resources>

@@ -40,4 +40,12 @@ class SampleCatalogRepository @Inject constructor() : CatalogRepository {
                     product.description.matches(query)
         }
     }
+
+    override suspend fun findProductByBarcode(barcode: String): Product? {
+        delay(SIMULATED_DELAY_MS)
+        val value = barcode.trim()
+        return SampleCatalogData.products.firstOrNull {
+            it.code.equals(value, ignoreCase = true) || it.id == value
+        }
+    }
 }

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,19 +22,19 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Category
+import androidx.compose.material.icons.outlined.QrCodeScanner
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.SuggestionChip
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -53,6 +52,7 @@ private val PopularSearches = listOf("NYM-J", "XLPE", "Fiber", "Cat6")
 fun HomeScreen(
     onProductClick: (productId: String) -> Unit,
     onBrowseCatalogClick: () -> Unit,
+    onScanClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -65,6 +65,7 @@ fun HomeScreen(
         onQueryChange = viewModel::onQueryChange,
         onProductClick = onProductClick,
         onBrowseCatalogClick = onBrowseCatalogClick,
+        onScanClick = onScanClick,
         modifier = modifier,
     )
 }
@@ -76,6 +77,7 @@ private fun HomeContent(
     onQueryChange: (String) -> Unit,
     onProductClick: (String) -> Unit,
     onBrowseCatalogClick: () -> Unit,
+    onScanClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -108,6 +110,7 @@ private fun HomeContent(
                 SearchState.Idle -> IdleContent(
                     onSuggestionClick = onQueryChange,
                     onBrowseCatalogClick = onBrowseCatalogClick,
+                    onScanClick = onScanClick,
                 )
 
                 SearchState.Loading -> CircularProgressIndicator(
@@ -172,70 +175,69 @@ private fun SearchField(
 private fun IdleContent(
     onSuggestionClick: (String) -> Unit,
     onBrowseCatalogClick: () -> Unit,
+    onScanClick: () -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
-        Text(
-            text = stringResource(R.string.search_popular),
-            style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        // ... popüler aramalar aynı kalıyor ...
+        ActionCard(
+            icon = Icons.Outlined.QrCodeScanner,
+            title = stringResource(R.string.home_scan),
+            description = stringResource(R.string.home_scan_desc),
+            onClick = onScanClick,
         )
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
-            PopularSearches.forEach { suggestion ->
-                SuggestionChip(
-                    onClick = { onSuggestionClick(suggestion) },
-                    label = { Text(suggestion) },
-                )
-            }
-        }
-        BrowseCatalogCard(onClick = onBrowseCatalogClick)
+        ActionCard(
+            icon = Icons.Outlined.Category,
+            title = stringResource(R.string.home_browse_catalog),
+            description = stringResource(R.string.home_browse_catalog_desc),
+            onClick = onBrowseCatalogClick,
+        )
     }
 }
 
 @Composable
-private fun BrowseCatalogCard(onClick: () -> Unit) {
-    Surface(
-        onClick = onClick,
-        modifier = Modifier.fillMaxWidth(),
-        shape = MaterialTheme.shapes.large,
-        color = MaterialTheme.colorScheme.surface,
+private fun ActionCard(
+    icon: ImageVector,
+    title: String,
+    description: String,
+    onClick: () -> Unit,
+) {
+    Row(
+        modifier = Modifier.padding(Spacing.md),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Row(
-            modifier = Modifier.padding(Spacing.md),
-            verticalAlignment = Alignment.CenterVertically,
+        Box(
+            modifier = Modifier
+                .size(48.dp)
+                .clip(MaterialTheme.shapes.medium)
+                .background(MaterialTheme.colorScheme.primaryContainer),
+            contentAlignment = Alignment.Center,
         ) {
-            Box(
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(MaterialTheme.shapes.medium)
-                    .background(MaterialTheme.colorScheme.primaryContainer),
-                contentAlignment = Alignment.Center,
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.Category,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                )
-            }
-            Spacer(modifier = Modifier.width(Spacing.md))
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = stringResource(R.string.home_browse_catalog),
-                    style = MaterialTheme.typography.titleMedium,
-                )
-                Text(
-                    text = stringResource(R.string.home_browse_catalog_desc),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
             Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                imageVector = icon,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                tint = MaterialTheme.colorScheme.onPrimaryContainer,
             )
         }
+        Spacer(modifier = Modifier.width(Spacing.md))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+            )
+            Text(
+                text = description,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
+
 
 @Composable
 private fun CenteredMessage(text: String) {

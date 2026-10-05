@@ -9,4 +9,5 @@ interface CatalogRepository {
     suspend fun getProduct(productId: String): Product?
     suspend fun getProductGroup(groupId: String): ProductGroup?
     suspend fun searchProducts(query: String): List<Product>
+    suspend fun findProductByBarcode(barcode: String): Product?
 }

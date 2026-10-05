@@ -25,3 +25,6 @@ data class ProductListRoute(val groupId: String)
 
 @Serializable
 data class ProductDetailRoute(val productId: String)
+
+@Serializable
+data object ScanRoute

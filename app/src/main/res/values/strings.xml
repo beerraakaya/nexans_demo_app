@@ -36,4 +36,15 @@
     <string name="search_no_results">No products found for “%1$s”</string>
     <string name="home_browse_catalog">Browse the catalog</string>
     <string name="home_browse_catalog_desc">Explore all product groups</string>
+
+    <string name="scan_title">Scan</string>
+    <string name="scan_hint">Point the camera at a product barcode or QR code</string>
+    <string name="scan_not_found">No product found for “%1$s”</string>
+    <string name="scan_again">Scan again</string>
+    <string name="scan_permission_title">Camera access needed</string>
+    <string name="scan_permission_message">Allow camera access to scan product barcodes.</string>
+    <string name="scan_permission_allow">Allow camera</string>
+    <string name="scan_permission_settings">Open settings</string>
+    <string name="home_scan">Scan a barcode</string>
+    <string name="home_scan_desc">Find a product with your camera</string>
 </resources>
