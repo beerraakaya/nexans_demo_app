@@ -20,7 +20,7 @@ enum class TopLevelDestination(
     @StringRes val labelRes: Int,
 ) {
     HOME(HomeRoute, Icons.Filled.Home, Icons.Outlined.Home, R.string.nav_home),
-    CATALOG(CatalogRoute, Icons.Filled.Category, Icons.Outlined.Category, R.string.nav_catalog),
+    CATALOG(CatalogGraph, Icons.Filled.Category, Icons.Outlined.Category, R.string.nav_catalog),
     TOOLS(ToolsRoute, Icons.Filled.Build, Icons.Outlined.Build, R.string.nav_tools),
     PROFILE(ProfileRoute, Icons.Filled.Person, Icons.Outlined.Person, R.string.nav_profile),
 }

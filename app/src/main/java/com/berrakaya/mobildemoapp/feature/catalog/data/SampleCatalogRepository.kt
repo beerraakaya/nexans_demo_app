@@ -28,4 +28,7 @@ class SampleCatalogRepository @Inject constructor() : CatalogRepository {
     private companion object {
         const val SIMULATED_DELAY_MS = 600L
     }
+
+    override suspend fun getProductGroup(groupId: String): ProductGroup? =
+        getProductGroups().firstOrNull { it.id == groupId }
 }

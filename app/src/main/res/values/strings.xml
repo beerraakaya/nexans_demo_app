@@ -19,4 +19,8 @@
         <item quantity="one">%d product</item>
         <item quantity="other">%d products</item>
     </plurals>
+    <string name="action_back">Back</string>
+    <string name="product_list_empty">No products in this category yet.</string>
+    <string name="product_specs_title">Technical specifications</string>
+    <string name="product_spec_format">%1$s: %2$s</string>
 </resources>

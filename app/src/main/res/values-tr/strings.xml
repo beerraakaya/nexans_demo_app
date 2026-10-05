@@ -17,4 +17,8 @@
         <item quantity="one">%d ürün</item>
         <item quantity="other">%d ürün</item>
     </plurals>
+    <string name="action_back">Geri</string>
+    <string name="product_list_empty">Bu kategoride henüz ürün yok.</string>
+    <string name="product_specs_title">Teknik özellikler</string>
+    <string name="product_spec_format">%1$s: %2$s</string>
 </resources>
